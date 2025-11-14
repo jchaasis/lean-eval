@@ -1,0 +1,54 @@
+---
+description: Standardize data fetching methods using Server Actions and data loaders
+alwaysApply: false
+---
+# Data Fetching Patterns
+
+## Context
+Utilize Server Actions for data fetching to maintain a clear separation between server and client logic. All data loading should be server-side to optimize performance and security.
+
+## Requirements
+
+### Server Actions
+- All Server Actions must be in `app/actions/` directory
+- Must include `"use server"` directive at the top
+- Should handle errors gracefully with try/catch
+- Return typed data using interfaces from `types/portfolio.ts`
+
+### Data Loading
+- Use `lib/data-loader.ts` for reading JSON files
+- Data loaders are server-only (use in Server Components or Server Actions)
+- All data should be typed with interfaces from `types/portfolio.ts`
+
+## Examples
+
+```typescript
+// Server Action: Fetches about section data
+"use server";
+
+import { getAboutData } from "@/lib/data-loader";
+import type { AboutData } from "@/types";
+
+/**
+ * Server Action to fetch about section data
+ * Currently reads from JSON file, can be migrated to Supabase later
+ */
+export async function getAbout(): Promise<AboutData> {
+  try {
+    return await getAboutData();
+  } catch (error) {
+    console.error("Error fetching about data:", error);
+    throw new Error("Failed to fetch about data");
+  }
+}
+```
+
+```typescript
+// Server Component: Calls Server Action
+import { getAbout } from "@/app/actions";
+
+export async function AboutSection() {
+  const aboutData = await getAbout();
+  return <section>{/* Render aboutData */}</section>;
+}
+```

@@ -1,0 +1,78 @@
+---
+description: Establish patterns for server and client components to ensure consistency and optimal performance
+alwaysApply: false
+tags: [Components, Patterns, Next.js, Server Components, Client Components]
+priority: 2
+version: 1.0.0
+---
+
+# Component Patterns
+
+## Context
+Differentiate between server and client components to optimize performance and maintainability. Use Server Components by default, and only use Client Components when interactivity is required.
+
+## Requirements
+
+### Server Components (Default)
+- Use Server Components by default for data fetching
+- Server Components are async and can directly call Server Actions
+- No `"use client"` directive needed
+
+### Client Components
+- Only use `"use client"` when needed (interactivity, hooks, browser APIs)
+- Mark the component with `"use client"` directive at the top
+
+### Component Organization
+- Each component should have a JSDoc comment describing its purpose
+- Export components from `index.ts` files for cleaner imports
+- Use named exports, not default exports for components
+
+### Component Props
+- Always define explicit TypeScript interfaces for component props
+- Use descriptive prop names
+
+### Reusable Components over raw HTML
+- Always prefer reusable Components over raw HTML.
+- If a Component doesn't exist for the desired use case, consider adding one.
+
+## Examples
+
+```typescript
+// Server Component: Fetches data at build/request time
+import { getAbout } from "@/app/actions";
+
+/**
+ * About Section Component
+ * Displays introduction, core technologies, specialties, achievements, and highlights
+ */
+export async function AboutSection() {
+  const aboutData = await getAbout();
+  return (
+    <section id="about">
+      {/* Component implementation */}
+    </section>
+  );
+}
+```
+
+```typescript
+// Client Component: Handles user interactions
+"use client";
+
+import { useState } from "react";
+import type { Project } from "@/types";
+
+/**
+ * Project Card Component
+ * Displays project information with image, title, description, technologies, and links
+ */
+interface ProjectCardProps {
+  project: Project;
+  onImageClick: (project: Project) => void;
+}
+
+export function ProjectCard({ project, onImageClick }: ProjectCardProps) {
+  const [isHovered, setIsHovered] = useState(false);
+  // Component implementation
+}
+```

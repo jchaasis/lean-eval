@@ -1,0 +1,47 @@
+---
+description: Define styling conventions using Tailwind CSS to ensure consistent design system
+alwaysApply: false
+---
+# Styling Guidelines
+
+## Context
+Utilize Tailwind CSS for styling to ensure a consistent and efficient design system. Follow the established color palette and spacing conventions throughout the project.
+
+## Requirements
+
+### Tailwind CSS
+- Use Tailwind utility classes exclusively
+- Use the `cn()` utility from `lib/utils.ts` for conditional classes
+- Avoid custom CSS unless necessary for specific use cases
+
+### Color Palette
+
+
+### Responsive Design
+- Use responsive prefixes: `md:`, `lg:`
+- Ensure all layouts work on mobile, tablet, and desktop
+- Test breakpoints: mobile (< 768px), tablet (768px - 1024px), desktop (> 1024px)
+
+### Component Styling
+- Use consistent spacing: `p-4`, `p-6`, `p-8` for padding
+- Use consistent border radius: `rounded-[10px]` for cards
+- Use consistent gaps: `gap-4`, `gap-6`, `gap-8`
+
+## Examples
+
+```typescript
+import { cn } from "@/lib/utils";
+
+// Conditional classes with cn()
+<div className={cn(
+  "rounded-[10px] bg-white p-6",
+  isActive && "bg-[#f8f8f8]"
+)}>
+  Content
+</div>
+
+// Responsive design
+<div className="px-4 py-12 md:px-8 md:py-16 lg:px-[176px] lg:py-[204px]">
+  Content
+</div>
+```

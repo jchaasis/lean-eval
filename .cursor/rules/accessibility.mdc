@@ -1,0 +1,65 @@
+---
+description: Ensure accessibility compliance across the project to make the application usable for all users
+alwaysApply: false
+---
+# Accessibility (A11Y) Requirements
+
+## Context
+Adhere to accessibility standards (WCAG 2.1 Level AA) to make the application usable for all users, including those using assistive technologies.
+
+## Requirements
+
+### Keyboard Navigation
+- All interactive elements must be keyboard accessible
+- Use proper `tabIndex` values
+- Handle `Enter` and `Space` keys for clickable elements
+- Maintain logical tab order
+
+### ARIA Labels
+- All images must have descriptive `alt` text
+- Use `aria-label` for interactive elements without visible text
+- Use `aria-labelledby` for sections with headings
+- Use `aria-hidden="true"` for decorative elements
+
+### Semantic HTML
+- Use proper HTML5 semantic elements: `<section>`, `<nav>`, `<main>`, `<header>`, `<footer>`
+- Use heading hierarchy correctly (h1, h2, h3, etc.)
+- Include skip-to-content link in layout
+
+### Focus Management
+- Ensure focus indicators are visible
+- Maintain logical tab order
+
+## Examples
+
+```typescript
+// Keyboard navigation
+<div
+  role="button"
+  tabIndex={0}
+  onKeyDown={(e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleClick();
+    }
+  }}
+  aria-label="View project images"
+>
+  {/* Content */}
+</div>
+
+// Semantic HTML with ARIA
+<section id="about" aria-labelledby="about-heading">
+  <h2 id="about-heading">About Me</h2>
+  {/* Content */}
+</section>
+
+// Image with alt text
+import Image from "next/image";
+
+<Image
+  src={imageSrc}
+  alt="Project screenshot showing the dashboard interface"
+  fill
+/>
+```
