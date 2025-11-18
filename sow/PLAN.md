@@ -52,9 +52,67 @@
 - [x] Ensure idea text persists when navigating between steps (in-memory only for MVP).
 
 ### Follow-Up Questions
-- [ ] Render static set of 2–3 templated clarifiers (problem, target user, pricing) per requirements.
-- [ ] Support per-question validation + progressive disclosure (disable Continue until all answered).
-- [ ] Persist idea + clarifier responses in a shared client store (e.g., Zustand/React context) for later steps.
+#### Layout & Structure
+- [x] Create server component `app/questions/page.tsx` with same gradient background as landing page.
+- [x] Implement header section matching landing page (title, subtitle, refresh button).
+- [x] Add "← Back to idea" navigation link above main card (left-aligned, navigates to `/`).
+
+#### Main Questions Card
+- [x] Create white card container using reusable `Card` component.
+- [x] Build `CardHeader` with question/chat icon, "A Few Quick Questions" title, and "Help us understand your idea better" subtitle.
+- [x] Implement "Your idea:" section:
+  - Label text "Your idea:" in dark gray
+  - Display previously entered idea text (read-only, from context state)
+  - Style as non-editable text in lighter gray
+
+#### Question Components
+- [x] Create reusable `QuestionField` component that accepts:
+  - `questionNumber`: number (1, 2, 3)
+  - `questionText`: string
+  - `isRequired`: boolean (shows red asterisk if true)
+  - `placeholder`: string
+  - `guidanceText`: string
+  - `value`: string (controlled input)
+  - `onChange`: handler function
+- [x] Implement Question 1: "Who is your target user or customer?"
+  - Required field (red asterisk)
+  - Placeholder: "e.g., Busy working parents with kids under 10"
+  - Guidance: "Be specific: demographics, behaviors, or shared characteristics"
+- [x] Implement Question 2: "What specific pain point or frustration does this solve?"
+  - Required field (red asterisk)
+  - Placeholder: "e.g., Spending 2+ hours weekly on meal planning and grocery lists"
+  - Guidance: "What problem keeps them up at night?"
+- [x] Implement Question 3: "How might you charge for this? (Optional)"
+  - Optional field (no asterisk, marked as "(Optional)")
+  - Placeholder: "e.g., $10/month subscription or free with premium tier"
+  - Guidance: "Just a rough idea — we'll help you test it"
+
+#### Form Validation & State
+- [x] Create client component `components/questions-form.tsx` with "use client" directive.
+- [x] Implement controlled inputs for all three questions using React state.
+- [x] Add validation logic:
+  - Questions 1 and 2: Required (minimum 5 characters)
+  - Question 3: Optional (no validation)
+  - Real-time validation feedback
+- [x] Retrieve idea from evaluation context and display in "Your idea:" section.
+- [x] Store clarifier responses in evaluation context as user types.
+
+#### Action Buttons
+- [x] Implement "Back" button:
+  - White background, light gray border, dark gray text
+  - Navigates to `/` (landing page)
+  - Preserves current form state in context
+- [x] Implement "Generate Evaluation →" button:
+  - Dark background (#030213), white text, right arrow icon
+  - Disabled state: opacity-50 when required questions are incomplete
+  - Enabled state: full opacity, hover effects
+  - On click: validate all required fields, store responses in context, navigate to `/loading`
+
+#### Navigation & State Persistence
+- [x] Ensure idea text from landing page persists and displays correctly.
+- [x] Wire "Back" button to navigate to landing page while preserving form state.
+- [x] Wire "Generate Evaluation →" to validate, store clarifier responses, and navigate to loading screen.
+- [x] Update evaluation context to store clarifier responses as array of `ClarifierResponse` objects.
 
 ### Loading Screen
 - [ ] Create loading route/segment that streams status text (“Evaluating your idea…”) and animates progress per Figma.
