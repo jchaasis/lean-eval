@@ -1,0 +1,47 @@
+---
+description: Enforce strict TypeScript standards to ensure code quality and maintainability
+alwaysApply: true
+tags: [TypeScript, Standards, Code Quality]
+priority: 1
+version: 1.0.0
+---
+
+# TypeScript Standards
+
+## Context
+Apply these standards to all TypeScript files in the project. Ensure strict typing to prevent runtime errors and improve code readability.
+
+## Requirements
+
+- **Strict Mode**: Always use strict TypeScript configuration
+- **No "any" types**: Never use `any`. Use `unknown` if type is truly unknown, then narrow it
+- **Readonly arrays**: Use `readonly` for data arrays that shouldn't be mutated (e.g., `readonly string[]`)
+- **Type definitions**: All types should be defined in `types/` directory
+- **Type imports**: Use `type` keyword for type-only imports: `import type { SomeType } from "..."`
+- **Unused variables**: Enable `noUnusedLocals` and `noUnusedParameters` in tsconfig
+
+## Examples
+
+```typescript
+// Good: Using readonly arrays
+export interface Project {
+  technologies: readonly string[];
+}
+
+// Good: Type-only import
+import type { Project } from "@/types";
+
+// Bad: Using 'any'
+function processData(data: any) {
+  return data;
+}
+
+// Good: Using 'unknown' and narrowing
+function processData(data: unknown) {
+  if (typeof data === 'string') {
+    // data is now narrowed to string
+    return data.toUpperCase();
+  }
+  throw new Error('Invalid data type');
+}
+```
