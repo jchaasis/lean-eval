@@ -1,16 +1,55 @@
 # LeanEval Implementation Plan
 
 ## 1. Foundations & Infrastructure
-- [ ] Bootstrap Next.js 16 App Router project with TypeScript strict mode, Tailwind, shadcn/ui, and shared layout shell matching Figma base styles.
-- [ ] Configure project-level linting (ESLint, Prettier) and commit hooks to enforce TypeScript standards and accessibility rules.
-- [ ] Set up environment management for Anthropic API keys and shared config (`env.mjs`, `process.env` validation via `zod`).
-- [ ] Define global types in `types/` (idea payload, clarifier responses, evaluation schema, scoring).
+- [x] Bootstrap Next.js 16 App Router project with TypeScript strict mode, Tailwind, shadcn/ui, and shared layout shell matching Figma base styles.
+- [x] Configure project-level linting (ESLint, Prettier) and commit hooks to enforce TypeScript standards and accessibility rules.
+- [x] Set up environment management for Anthropic API keys and shared config (`env.mjs`, `process.env` validation via `zod`).
+- [x] Define global types in `types/` (idea payload, clarifier responses, evaluation schema, scoring).
 
 ## 2. Core User Flow (Per Figma Screens)
 ### Idea Intake / Landing
-- [ ] Build server component `app/page.tsx` that renders hero copy, single idea textarea, and CTA button aligned to Figma design.
-- [ ] Implement client form component with validation (min/max length, guidance text) and optimistic button states.
-- [ ] Wire CTA to transition into follow-up questions view (client state only for MVP).
+#### Layout & Structure
+- [x] Create server component `app/page.tsx` with full-height gradient background (148.031deg gradient from #F8FAFC to #F1F5F9).
+- [x] Implement centered container with max-width constraints matching Figma (px-[327.5px] equivalent, responsive).
+- [x] Build header section with centered "LeanEval" title (16px, #0F172B, Inter Regular) and subtitle below.
+- [x] Add refresh/reload icon button in top-right corner (36x36px, rounded-full) with proper accessibility labels.
+
+#### Main Form Card
+- [x] Create white card container with border (border-slate-200), rounded-[10px], proper padding (pt-[33px] px-[33px]). This should be a reusable component that other pages can consume.
+- [x] Build icon + heading section: lightbulb icon in green circular background (#d0fae5, 48x48px), "Describe Your Idea" heading, and subtitle text.
+- [x] Implement large textarea (160px height) with:
+  - Placeholder text: "Example: A mobile app that helps busy parents plan weekly meals based on their family's dietary preferences, reducing food waste and saving time on grocery shopping..."
+  - Background color #f3f3f5, border transparent, rounded-[8px]
+  - Padding px-[12px] py-[8px]
+  - Character limit: 500 characters
+- [x] Add character counter below textarea (0/500 characters, #62748e, 14px) that updates in real-time.
+- [x] Create inspiration section with:
+  - Light grey background (bg-slate-50), border, rounded-[10px]
+  - Heading: "Need inspiration? Try these examples:" (#45556c, 14px)
+  - Three clickable example ideas in green (#009966, 14px):
+    1. "A Chrome extension that summarizes meeting notes using AI"
+    2. "A marketplace connecting local farmers directly with restaurants"
+    3. "An app that gamifies learning to code for kids"
+- [x] Implement "Continue to Questions →" button:
+  - Dark background (#030213), white text, rounded-[8px], 40px height
+  - Disabled state: opacity-50 (when textarea is empty or < minimum length)
+  - Enabled state: full opacity, hover effects
+
+#### Client Component & Validation
+- [x] Create client component `components/idea-intake-form.tsx` with "use client" directive.
+- [x] Implement controlled textarea with React state management.
+- [x] Add validation logic:
+  - Minimum length: 10 characters (or reasonable threshold)
+  - Maximum length: 500 characters (enforced)
+  - Real-time character count updates
+- [x] Handle example idea clicks: populate textarea with selected example text.
+- [x] Implement button state management (disabled when invalid, enabled when valid).
+- [x] Add form submission handler that stores idea in client state (React Context or Zustand) and navigates to questions page.
+
+#### State Management & Navigation
+- [x] Set up client-side state store (React Context or Zustand) for idea + clarifier responses.
+- [x] Wire "Continue" button to transition to `/questions` route (client-side navigation).
+- [x] Ensure idea text persists when navigating between steps (in-memory only for MVP).
 
 ### Follow-Up Questions
 - [ ] Render static set of 2–3 templated clarifiers (problem, target user, pricing) per requirements.

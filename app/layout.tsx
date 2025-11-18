@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { EvaluationProvider } from "@/contexts/evaluation-context";
 import "./globals.css";
 
 const inter = Inter({
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 
 /**
  * Root layout component
- * Provides global styles and font configuration
+ * Provides global styles, font configuration, and evaluation context
  */
 export default function RootLayout({
   children,
@@ -23,7 +24,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <EvaluationProvider>{children}</EvaluationProvider>
+      </body>
     </html>
   );
 }
