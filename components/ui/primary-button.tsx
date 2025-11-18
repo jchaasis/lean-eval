@@ -31,7 +31,7 @@ export function PrimaryButton({
       onClick={onClick}
       disabled={isDisabled}
       className={cn(
-        "bg-[#030213] text-white rounded-lg h-10 text-sm font-medium leading-5 tracking-[-0.1504px] flex items-center justify-center gap-2 transition-opacity",
+        "w-full bg-[#030213] text-white rounded-lg h-10 text-sm font-medium leading-5 tracking-[-0.1504px] flex items-center justify-center gap-2 transition-opacity",
         !isDisabled
           ? "opacity-100 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-[#030213] focus:ring-offset-2"
           : "opacity-50 cursor-not-allowed"

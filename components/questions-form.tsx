@@ -150,14 +150,18 @@ export function QuestionsForm() {
 
         {/* Action Buttons */}
         <div className="flex gap-3">
-          <BackButton />
-          <PrimaryButton
-            type="submit"
-            text="Generate Evaluation"
-            disabled={!isFormValid}
-            isLoading={isSubmitting}
-            showArrow={true}
-          />
+          <div className="flex-1">
+            <BackButton />
+          </div>
+          <div className="flex-1">
+            <PrimaryButton
+              type="submit"
+              text="Generate Evaluation"
+              disabled={!isFormValid}
+              isLoading={isSubmitting}
+              showArrow={true}
+            />
+          </div>
         </div>
       </form>
     </Card>
