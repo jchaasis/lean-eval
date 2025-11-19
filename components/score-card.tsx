@@ -9,22 +9,19 @@ interface ScoreCardProps {
   progressColor: string;
 }
 
-/**
- * Get icon component for dimension
- */
-function getDimensionIcon(name: string) {
-  switch (name) {
-    case "Feasibility":
-      return CheckCircle2;
-    case "Market Pull":
-      return TrendingUp;
-    case "Novelty":
-      return Sparkles;
-    case "Speed-to-Signal":
-      return Zap;
-    default:
-      return CheckCircle2;
+function DimensionIcon({ name }: { name: string }) {
+  const className = "size-4 text-[#0f172b]";
+
+  if (name === "Feasibility") {
+    return <CheckCircle2 className={className} />;
+  } else if (name === "Market Pull") {
+    return <TrendingUp className={className} />;
+  } else if (name === "Novelty") {
+    return <Sparkles className={className} />;
+  } else if (name === "Speed-to-Signal") {
+    return <Zap className={className} />;
   }
+  return <CheckCircle2 className={className} />;
 }
 
 /**
@@ -39,7 +36,6 @@ export function ScoreCard({
   progressColor,
 }: ScoreCardProps) {
   const progressPercentage = (score / 10) * 100;
-  const Icon = getDimensionIcon(name);
 
   return (
     <div className="bg-white border border-slate-200 rounded-[10px] pt-[17px] px-[17px] pb-[17px] flex flex-col gap-3">
@@ -47,7 +43,7 @@ export function ScoreCard({
         <div className="flex gap-2 items-center flex-1 min-w-0">
           {/* Icon */}
           <div className={cn("rounded-[10px] size-8 flex items-center justify-center shrink-0", iconColor)}>
-            <Icon className="size-4 text-[#0f172b]" />
+            <DimensionIcon name={name} />
           </div>
 
           {/* Name and Description */}

@@ -45,7 +45,7 @@ export function ProblemPersonaContent({ data }: ProblemPersonaContentProps) {
               Next Step
             </p>
             <p className="text-sm font-normal text-[#314158] leading-5 tracking-[-0.1504px]">
-              Interview 5-10 people matching this persona. Ask: "How do you currently solve [problem]? How much time/money does it cost you?"
+              Interview 5-10 people matching this persona. Ask: &quot;How do you currently solve [problem]? How much time/money does it cost you?&quot;
             </p>
           </div>
         </div>
