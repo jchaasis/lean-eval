@@ -30,6 +30,13 @@ export function QuestionsForm() {
   const isQuestion2Valid = question2.trim().length >= MIN_ANSWER_LENGTH;
   const isFormValid = isQuestion1Valid && isQuestion2Valid;
 
+  // Redirect to home if no idea is set
+  useEffect(() => {
+    if (!idea) {
+      router.push("/");
+    }
+  }, [idea, router]);
+
   // Store responses in context as user types
   useEffect(() => {
     const responses: ClarifierResponse[] = [];
@@ -87,9 +94,8 @@ export function QuestionsForm() {
     router.push("/loading");
   };
 
+  // Return null while redirecting if no idea is set
   if (!idea) {
-    // Redirect to home if no idea is set
-    router.push("/");
     return null;
   }
 
