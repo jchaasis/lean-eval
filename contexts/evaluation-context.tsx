@@ -1,13 +1,26 @@
 "use client";
 
-import { createContext, useContext, useState, type ReactNode } from "react";
-import type { IdeaInput, ClarifierResponse } from "@/types/evaluation";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useMemo,
+  type ReactNode,
+} from "react";
+import type {
+  IdeaInput,
+  ClarifierResponse,
+  EvaluationResult,
+} from "@/types/evaluation";
 
 interface EvaluationContextValue {
   idea: IdeaInput | null;
   clarifiers: readonly ClarifierResponse[];
+  evaluationResult: EvaluationResult | null;
   setIdea: (idea: IdeaInput) => void;
   setClarifiers: (clarifiers: readonly ClarifierResponse[]) => void;
+  setEvaluationResult: (result: EvaluationResult) => void;
   clearEvaluation: () => void;
 }
 
@@ -24,30 +37,45 @@ export function EvaluationProvider({ children }: { children: ReactNode }) {
   const [clarifiers, setClarifiersState] = useState<
     readonly ClarifierResponse[]
   >([]);
+  const [evaluationResult, setEvaluationResultState] =
+    useState<EvaluationResult | null>(null);
 
-  const setIdea = (newIdea: IdeaInput) => {
+  const setIdea = useCallback((newIdea: IdeaInput) => {
     setIdeaState(newIdea);
-  };
+  }, []);
 
-  const setClarifiers = (newClarifiers: readonly ClarifierResponse[]) => {
-    setClarifiersState(newClarifiers);
-  };
+  const setClarifiers = useCallback(
+    (newClarifiers: readonly ClarifierResponse[]) => {
+      setClarifiersState(newClarifiers);
+    },
+    []
+  );
 
-  const clearEvaluation = () => {
+  const setEvaluationResult = useCallback((result: EvaluationResult) => {
+    setEvaluationResultState(result);
+  }, []);
+
+  const clearEvaluation = useCallback(() => {
     setIdeaState(null);
     setClarifiersState([]);
-  };
+    setEvaluationResultState(null);
+  }, []);
+
+  const value = useMemo(
+    () => ({
+      idea,
+      clarifiers,
+      evaluationResult,
+      setIdea,
+      setClarifiers,
+      setEvaluationResult,
+      clearEvaluation,
+    }),
+    [idea, clarifiers, evaluationResult, setIdea, setClarifiers, setEvaluationResult, clearEvaluation]
+  );
 
   return (
-    <EvaluationContext.Provider
-      value={{
-        idea,
-        clarifiers,
-        setIdea,
-        setClarifiers,
-        clearEvaluation,
-      }}
-    >
+    <EvaluationContext.Provider value={value}>
       {children}
     </EvaluationContext.Provider>
   );

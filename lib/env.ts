@@ -1,8 +1,13 @@
+import "server-only";
+
 import { z } from "zod";
 
 /**
  * Environment variable schema validation
  * Ensures all required environment variables are present and valid
+ * 
+ * This file is server-only and cannot be imported in client components.
+ * This prevents sensitive environment variables from being exposed to the browser.
  */
 const envSchema = z.object({
   // Anthropic API configuration
