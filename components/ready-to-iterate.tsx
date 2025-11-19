@@ -20,7 +20,7 @@ export function ReadyToIterate({ onNewEvaluation }: ReadyToIterateProps) {
         Ready to Iterate?
       </h3>
       <p className="text-base font-normal text-[#45556c] leading-6 tracking-[-0.3125px] mb-6">
-        Use the "Regenerate" button on any section to explore alternative angles, or start fresh with a refined version of your idea.
+        Use the &quot;Regenerate&quot; button on any section to explore alternative angles, or start fresh with a refined version of your idea.
       </p>
       <button
         onClick={onNewEvaluation}

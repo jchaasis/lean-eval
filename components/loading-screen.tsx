@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Sparkles, Target, Lightbulb, TrendingUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
@@ -51,12 +51,26 @@ export function LoadingScreen() {
   const taskTimeoutsRef = useRef<NodeJS.Timeout[]>([]);
   const isEvaluatingRef = useRef(false);
 
+  // Validate required data - compute error state instead of setting in effect
+  const validationError = useMemo(
+    () =>
+      !idea || clarifiers.length === 0
+        ? "Missing required data. Please go back and complete the form."
+        : null,
+    [idea, clarifiers]
+  );
+
+  // Combine validation error with async error for display
+  const displayError = validationError || error;
+
   useEffect(() => {
-    // Validate that we have required data
-    if (!idea || clarifiers.length === 0) {
-      setError("Missing required data. Please go back and complete the form.");
-      setIsLoading(false);
-      return;
+    // If validation fails, don't run the effect
+    // Use setTimeout to defer state update and avoid synchronous setState in effect
+    if (validationError) {
+      const timeoutId = setTimeout(() => {
+        setIsLoading(false);
+      }, 0);
+      return () => clearTimeout(timeoutId);
     }
 
     // Prevent multiple simultaneous evaluations
@@ -65,10 +79,13 @@ export function LoadingScreen() {
     }
 
     // Reset state for new evaluation
-    setProgress(0);
-    setActiveTaskIndex(null);
-    setError(null);
-    setIsLoading(true);
+    // Use setTimeout to defer state updates and avoid synchronous setState in effect
+    setTimeout(() => {
+      setProgress(0);
+      setActiveTaskIndex(null);
+      setError(null);
+      setIsLoading(true);
+    }, 0);
     isEvaluatingRef.current = true;
 
     // Clear any existing intervals/timeouts
@@ -106,8 +123,9 @@ export function LoadingScreen() {
     const evaluateIdea = async () => {
       try {
         const evaluationStartTime = Date.now();
+        // At this point, we know idea is not null due to validation check above
         const result = await generateEvaluation({
-          idea,
+          idea: idea!,
           clarifiers,
         });
 
@@ -164,7 +182,7 @@ export function LoadingScreen() {
       taskTimeoutsRef.current = [];
       isEvaluatingRef.current = false;
     };
-  }, [idea, clarifiers, router, setEvaluationResult, retryCount]);
+  }, [idea, clarifiers, router, setEvaluationResult, retryCount, validationError]);
 
   const handleRetry = () => {
     // Reset evaluation flag to allow new evaluation
@@ -186,7 +204,7 @@ export function LoadingScreen() {
     setRetryCount((prev) => prev + 1);
   };
 
-  if (error) {
+  if (displayError) {
     return (
       <Card className="flex flex-col gap-6 pt-[49px] px-[208px] pb-4 min-h-[518px] items-center justify-center">
         <div className="flex flex-col gap-4 items-center text-center max-w-md">
@@ -199,7 +217,7 @@ export function LoadingScreen() {
             Evaluation Failed
           </h2>
           <p className="text-sm font-normal text-[#45556c] leading-5">
-            {error}
+            {displayError}
           </p>
           <div className="flex gap-3 mt-2">
             <button
