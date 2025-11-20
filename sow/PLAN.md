@@ -180,21 +180,21 @@
 
 ### Evaluation Dashboard
 #### Layout & Structure
-- [ ] Create server component `app/dashboard/page.tsx` with same gradient background as landing page (148.031deg gradient from #F8FAFC to #F1F5F9).
+- [x] Create server component `app/dashboard/page.tsx` with same gradient background as landing page (148.031deg gradient from #F8FAFC to #F1F5F9).
 - [ ] Implement header section matching landing page (title "LeanEval", subtitle, refresh button in top-right).
-- [ ] Create main container with proper spacing (gap-[48px] between sections, px-[320px] for desktop).
+- [x] Create main container with proper spacing (gap-[48px] between sections, px-[320px] for desktop).
 
 #### Evaluation Report Summary Card
-- [ ] Build summary card container (white background, border-slate-200, rounded-[10px], padding pt-[33px] px-[33px]).
-- [ ] Implement card header with:
+- [x] Build summary card container (white background, border-slate-200, rounded-[10px], padding pt-[33px] px-[33px]).
+- [x] Implement card header with:
   - Green circular icon background (#d0fae5, 48x48px) with lightbulb icon
   - "Lean Evaluation Report" heading (16px, #0f172b)
   - Idea description subtitle (14px, #45556c)
-- [ ] Create composite score section:
+- [x] Create composite score section:
   - Circular score badge (80x80px, white background, shadow) displaying score (e.g., "7.8") and "/ 10" below
   - Score label with icon: "Composite Score" (16px, #0f172b) and "Overall viability based on all factors" subtitle (14px, #45556c)
   - Status badge (e.g., "Strong" in green-100 background, #008236 text, 28px height)
-- [ ] Build dimension score cards grid (2x2 layout):
+- [x] Build dimension score cards grid (2x2 layout):
   - Four cards: Feasibility, Market Pull, Novelty, Speed-to-Signal
   - Create reusable ScoreCard component
   - Each card contains:
@@ -202,44 +202,39 @@
     - Dimension name (14px, #0f172b) and description (12px, #62748e)
     - Score number (16px, #0f172b) aligned right
     - Progress bar (8px height, slate-100 background) with colored fill matching dimension theme
-- [ ] Add action buttons section:
+- [x] Add action buttons section:
   - "Export as Markdown" button (white background, border, 36px height) with download icon
   - "New Evaluation" button (white background, border, 36px height) with plus icon
 
 #### Collapsible Evaluation Cards
-- [ ] Create reusable `EvaluationCard` component with:
+- [x] Create reusable `EvaluationCard` component with:
   - Header section (75px height) with title (18px, Inter Medium, #0f172b) and expand/collapse icon (20x20px)
   - Collapsible content area with smooth animation
   - Default state: expanded for all cards
-- [ ] Implement Problem & Persona card:
+- [x] Implement Problem & Persona card:
   - Structured content sections: Core Problem, Market Context, Target Persona, Current Behaviors, Why Now
   - Each section with bold label and regular text (16px, #0f172b for labels, #314158 for text)
   - "Next Step" callout box (blue-50 background, #bedbff border, rounded-[10px]) with icon and actionable text
-  - "Regenerate Section" button (bottom-right, 173px width, 32px height) with refresh icon
-- [ ] Implement MVP Scope card:
+- [x] Implement MVP Scope card:
   - "Core Features (In Scope)" section with bullet list (16px, #314158)
   - "Explicitly Out of Scope (V1)" section with bullet list
   - "Build Timeline" and "Success Criteria" sections with bold labels
   - "Next Step" callout box (green-50 background, #b9f8cf border) with icon
-  - "Regenerate Section" button
-- [ ] Implement Validation Experiments card:
+- [x] Implement Validation Experiments card:
   - Multiple experiment sections, each with:
     - Experiment title (bold, 16px)
     - Hypothesis, Method, Success Metric, Cost fields (16px, #314158)
   - "Next Step" callout box (pink-50 background, #fccee8 border) with icon
-  - "Regenerate Section" button
-- [ ] Implement Risks & Mitigation card:
+- [x] Implement Risks & Mitigation card:
   - Risk categories: High Risk, Medium Risk, Low Risk (bold labels, 16px)
   - Each risk item with bold risk text and italicized mitigation text (16px, #314158)
   - "Next Step" callout box (red-50 background, #ffc9c9 border) with icon
-  - "Regenerate Section" button
-- [ ] Implement Key Performance Indicators card:
+- [x] Implement Key Performance Indicators card:
   - "North Star Metric" section with bold label and value
   - "Primary Metrics (Track from Day 1)" section with bullet list and targets
   - "Secondary Metrics (Track from Week 2)" section with bullet list and targets
   - "Leading Indicators" section with bullet list
   - "Next Step" callout box (orange-50 background, #ffd6a7 border) with icon
-  - "Regenerate Section" button
 
 
 #### Markdown Export
@@ -252,21 +247,18 @@
   - Log instrumentation hook (e.g., `report_exported` event)
 
 #### Additional Actions
-- [ ] Implement "New Evaluation" button that:
+- [x] Implement "New Evaluation" button that:
   - Clears evaluation context
   - Navigates back to landing page (`/`)
   - Preserves no state between evaluations
-- [ ] Add "Ready to Iterate?" bottom section:
+- [x] Add "Ready to Iterate?" bottom section:
   - Gradient background (from #ecfdf5 to #f0fdfa, #a4f4cf border)
   - Title "Ready to Iterate?" (16px, #0f172b)
-  - Description text explaining regeneration functionality (16px, #45556c)
   - "Evaluate Another Idea" button (white background, border, 36px height)
 
 #### State Management & Data Flow
-- [ ] Retrieve evaluation data from evaluation context on page load.
-- [ ] Handle missing evaluation data gracefully (redirect to `/` if no data available).
-- [ ] Update evaluation context when sections are regenerated.
-- [ ] Ensure smooth transitions and loading states during regeneration.
+- [x] Retrieve evaluation data from evaluation context on page load.
+- [x] Handle missing evaluation data gracefully (redirect to `/` if no data available).
 
 ## 3. AI Evaluation Engine
 - [x] Author prompt templates incorporating idea description + clarifier answers + scoring rubric.
@@ -275,11 +267,6 @@
 - [x] Retry once on schema failure; scaffold hook for future second retry/fallback model with feature flag.
 - [x] Map validated data into domain types and cache per session (in-memory) for duration of user flow.
 
-## 4. Regeneration & Context Tweaks
-- [ ] Design modal/sheet allowing users to edit section-specific context before regenerating.
-- [ ] Reuse shared server action with `sectionOverride` payload to target only the requested block.
-- [ ] Merge regenerated section back into existing evaluation state while keeping timestamps for UX copy.
-
 ## 5. Markdown Export
 - [ ] Compose markdown template summarizing problem, MVP, KPIs, experiments, risks, and scoring explanation.
 - [ ] Style export using fenced sections and callouts to match “concise investor memo” tone.
@@ -287,12 +274,12 @@
 
 ## 6. Quality, Accessibility & Testing
 - [ ] Add unit tests for schema validation, scoring math, and prompt serialization.
-- [ ] Write component tests for form validation, follow-up flow, and section regeneration.
+- [ ] Write component tests for form validation and follow-up flow
 - [ ] Run accessibility audit (aria labels, focus order, contrast per Tailwind tokens).
 - [ ] Verify performance budgets: avoid unnecessary client bundles, ensure server components handle data fetching.
 
 ## 7. Deployment & Future Hooks
 - [ ] Configure Vercel project, environment variables, and preview deployments.
-- [ ] Document manual QA script (idea submission → dashboard → regen → export).
+- [ ] Document manual QA script (idea submission → dashboard → export).
 - [ ] Stub interfaces for future Supabase persistence and analytics events (time-to-evaluation, evaluations per session) without enabling them yet.
 
