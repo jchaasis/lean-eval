@@ -8,7 +8,7 @@ import { LoadingTask } from "@/components/ui/loading-task";
 import { useEvaluation } from "@/contexts/evaluation-context";
 import { generateEvaluation } from "@/app/actions/evaluation";
 
-const MIN_LOAD_TIME_MS = 3000; // 3 seconds minimum
+const MIN_LOAD_TIME_MS = 8000; // 8 seconds minimum
 
 const TASKS = [
   {
@@ -97,22 +97,23 @@ export function LoadingScreen() {
     taskTimeoutsRef.current = [];
 
     // Start progress animation
+    // To reach 90% over ~8 seconds: 90 increments of 1% each at ~89ms intervals
     progressIntervalRef.current = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
+        if (prev >= 90) {
           if (progressIntervalRef.current) {
             clearInterval(progressIntervalRef.current);
             progressIntervalRef.current = null;
           }
-          return 100;
+          return 90;
         }
-        return prev + 2; // Increment by 2% every ~60ms for smooth animation
+        return prev + 1; // Increment by 1% every ~89ms to reach 90% in ~8 seconds
       });
-    }, 60);
+    }, 89);
 
     // Animate tasks sequentially
     TASKS.forEach((_, index) => {
-      const delay = (index + 1) * 750; // 750ms between each task
+      const delay = (index + 1) * 2000; // 2000ms (2s) between each task, spread over 8 seconds
       const timeout = setTimeout(() => {
         setActiveTaskIndex(index);
       }, delay);
@@ -138,7 +139,7 @@ export function LoadingScreen() {
         // Wait for minimum load time
         await new Promise((resolve) => setTimeout(resolve, remainingTime));
         // Complete progress
-        setProgress(100);
+        setProgress(90);
         setActiveTaskIndex(TASKS.length - 1);
 
         // Store result in context
