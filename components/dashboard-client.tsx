@@ -36,7 +36,7 @@ export function DashboardClient() {
     <div className="flex flex-col gap-12 w-full">
       {/* Evaluation Report Summary Card */}
       <EvaluationReportSummary
-        idea={idea.description}
+        idea={idea}
         evaluationResult={evaluationResult}
         onNewEvaluation={handleNewEvaluation}
       />

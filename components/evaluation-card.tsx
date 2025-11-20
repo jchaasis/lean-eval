@@ -81,7 +81,7 @@ export function EvaluationCard({ title, section, data }: EvaluationCardProps) {
 
       {/* Content */}
       {isExpanded && (
-        <div className="px-6 pb-6">
+        <div className="px-6 pb-4">
           {renderContent()}
         </div>
       )}
