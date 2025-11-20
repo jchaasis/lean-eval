@@ -46,36 +46,34 @@ export function DashboardClient() {
         {/* Problem & Persona Card */}
         <EvaluationCard
           title="Problem & Persona"
-          section="problemAndPersona"
-          data={evaluationResult.problemAndPersona}
+          data={{
+            type: "problemAndPersona",
+            data: evaluationResult.problemAndPersona,
+          }}
         />
 
         {/* MVP Scope Card */}
         <EvaluationCard
           title="MVP Scope"
-          section="mvpScope"
-          data={evaluationResult.mvpScope}
+          data={{ type: "mvpScope", data: evaluationResult.mvpScope }}
         />
 
         {/* Validation Experiments Card */}
         <EvaluationCard
           title="Validation Experiments"
-          section="experiments"
-          data={evaluationResult.experiments}
+          data={{ type: "experiments", data: evaluationResult.experiments }}
         />
 
         {/* Risks & Mitigation Card */}
         <EvaluationCard
           title="Risks & Mitigation"
-          section="risks"
-          data={evaluationResult.risks}
+          data={{ type: "risks", data: evaluationResult.risks }}
         />
 
         {/* Key Performance Indicators Card */}
         <EvaluationCard
           title="Key Performance Indicators"
-          section="kpis"
-          data={evaluationResult.kpis}
+          data={{ type: "kpis", data: evaluationResult.kpis }}
         />
       </div>
 

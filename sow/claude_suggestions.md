@@ -1167,7 +1167,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 ### Phase 1: Critical Fixes (Week 1)
 1. [x] Remove all console.logs and TODO comments
 2. [x] Extract duplicate NextStepCallout component
-3. [ ] Fix type assertions in EvaluationCard
+3. [x] Fix type assertions in EvaluationCard
 4. [ ] Set up basic test infrastructure
 5. [ ] Add error boundaries
 

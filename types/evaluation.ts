@@ -104,3 +104,14 @@ export interface EvaluationResult {
   timestamp: string; // ISO 8601 timestamp
 }
 
+/**
+ * Discriminated union for EvaluationCard data
+ * Provides type-safe rendering without type assertions
+ */
+export type EvaluationCardData =
+  | { type: "problemAndPersona"; data: ProblemAndPersona }
+  | { type: "mvpScope"; data: MVPScope }
+  | { type: "experiments"; data: readonly Experiment[] }
+  | { type: "risks"; data: readonly Risk[] }
+  | { type: "kpis"; data: readonly KPI[] };
+
