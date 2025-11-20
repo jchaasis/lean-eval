@@ -1,8 +1,6 @@
 name: Tests
 
 on:
-  push:
-    branches: [main, christian-main]
   pull_request:
     branches: [main, christian-main]
 
