@@ -279,9 +279,8 @@
 - [x] Verify performance budgets: avoid unnecessary client bundles, ensure server components handle data fetching.
 
 ## 7. Deployment & Future Hooks
-- [ ] Configure Vercel project, environment variables, and preview deployments.
-- [ ] Document manual QA script (idea submission → dashboard → export).
-- [ ] Stub interfaces for future Supabase persistence and analytics events (time-to-evaluation, evaluations per session) without enabling them yet.
+- [x] Configure Vercel project, environment variables, and preview deployments.
+
 
 ## 8. Analytics
 - [ ] Enable Vercel analytics
