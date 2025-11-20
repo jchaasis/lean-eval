@@ -218,7 +218,7 @@ export function LoadingScreen() {
           Evaluating your idea...
         </h2>
         <p className="text-base font-normal text-[#45556c] leading-6 tracking-[-0.3125px] text-center mb-8">
-          This will take just a moment
+          This will take a few moments...
         </p>
 
         {/* Tasks List */}
