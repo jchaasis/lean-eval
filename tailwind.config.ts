@@ -67,10 +67,21 @@ const config: Config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "ring-pulse": {
+          "0%, 100%": { 
+            opacity: "1",
+            borderWidth: "4px",
+          },
+          "50%": { 
+            opacity: "0.5",
+            borderWidth: "8px",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "ring-pulse": "ring-pulse 2s ease-in-out infinite",
       },
     },
   },

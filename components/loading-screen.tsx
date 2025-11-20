@@ -243,7 +243,7 @@ export function LoadingScreen() {
       <div className="h-[420px] relative shrink-0 w-full flex flex-col items-center">
         {/* Loading Icon */}
         <div className="relative size-24 mb-8">
-          <div className="absolute border-4 border-[#a4f4cf] rounded-full size-[102px] -left-[3px] -top-[3px]" />
+          <div className="absolute border-4 border-[#a4f4cf] rounded-full size-[102px] -left-[3px] -top-[3px] animate-ring-pulse" />
           <div className="absolute bg-[#d0fae5] opacity-[0.924] rounded-full size-[72px] left-3 top-3 flex items-center justify-center">
             <Sparkles className="size-8 text-white" aria-hidden="true" />
           </div>

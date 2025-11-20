@@ -273,15 +273,14 @@
 - [x] Implement download mechanism (Blob + anchor) and verify accessibility (keyboard, screen reader labels).
 
 ## 6. Quality, Accessibility & Testing
-- [ ] Add unit tests for schema validation, scoring math, and prompt serialization.
-- [ ] Write component tests for form validation and follow-up flow
-- [ ] Run accessibility audit (aria labels, focus order, contrast per Tailwind tokens).
-- [ ] Verify performance budgets: avoid unnecessary client bundles, ensure server components handle data fetching.
+- [x] Add unit tests for schema validation, scoring math, and prompt serialization.
+- [x] Write component tests for form validation and follow-up flow
+- [x] Run accessibility audit (aria labels, focus order, contrast per Tailwind tokens).
+- [x] Verify performance budgets: avoid unnecessary client bundles, ensure server components handle data fetching.
 
 ## 7. Deployment & Future Hooks
-- [ ] Configure Vercel project, environment variables, and preview deployments.
-- [ ] Document manual QA script (idea submission → dashboard → export).
-- [ ] Stub interfaces for future Supabase persistence and analytics events (time-to-evaluation, evaluations per session) without enabling them yet.
+- [x] Configure Vercel project, environment variables, and preview deployments.
+
 
 ## 8. Analytics
 - [ ] Enable Vercel analytics
