@@ -31,14 +31,12 @@ export async function generateEvaluation(
   input: EvaluationInput
 ): Promise<EvaluationResult> {
   const prompt = buildEvaluationPrompt(input);
-  console.log("prompt", prompt);
   let lastError: Error | null = null;
-  // TODO: add to env
+  // LODO: add to env
   let model = "claude-sonnet-4-5-20250929";
   // Retry once on schema validation failure
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
-      console.log("attempt number ", attempt);
       const response = await anthropic.messages.create({
         model,
         max_tokens: 4000,
@@ -50,8 +48,6 @@ export async function generateEvaluation(
           },
         ],
       });
-
-      console.log("response", response);
 
       const content = response.content[0];
       if (content.type !== "text") {
