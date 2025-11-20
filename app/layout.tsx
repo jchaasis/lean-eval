@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { EvaluationProvider } from "@/contexts/evaluation-context";
+import { ErrorBoundary } from "@/components/error-boundary";
 import "./globals.css";
 
 const inter = Inter({
@@ -25,7 +26,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className={inter.className}>
-        <EvaluationProvider>{children}</EvaluationProvider>
+        <ErrorBoundary>
+          <EvaluationProvider>{children}</EvaluationProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

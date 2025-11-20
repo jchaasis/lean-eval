@@ -1168,8 +1168,7 @@ const handleSubmit = async (e: React.FormEvent) => {
 1. [x] Remove all console.logs and TODO comments
 2. [x] Extract duplicate NextStepCallout component
 3. [x] Fix type assertions in EvaluationCard
-4. [ ] Set up basic test infrastructure
-5. [ ] Add error boundaries
+4. [x] Add error boundaries
 
 ### Phase 2: Quality Improvements (Week 2)
 1. [ ] Extract custom hooks from LoadingScreen
