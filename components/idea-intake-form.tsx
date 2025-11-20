@@ -108,7 +108,7 @@ export function IdeaIntakeForm() {
         {/* Continue Button */}
         <PrimaryButton
           type="submit"
-          text="Continue to Questions →"
+          text="Next →"
           disabled={!isValid}
           isLoading={isSubmitting}
         />
