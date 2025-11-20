@@ -1,5 +1,6 @@
 import { Info } from "lucide-react";
 import type { ProblemAndPersona } from "@/types/evaluation";
+import { NextStepCallout } from "@/components/ui/next-step-callout";
 
 interface ProblemPersonaContentProps {
   data: ProblemAndPersona;
@@ -37,19 +38,11 @@ export function ProblemPersonaContent({ data }: ProblemPersonaContentProps) {
       </div>
 
       {/* Next Step Callout */}
-      <div className="bg-blue-50 border border-[#bedbff] rounded-[10px] pt-[17px] px-[17px] pb-0 mt-4">
-        <div className="flex gap-3 items-start pb-4">
-          <Info className="size-5 text-[#0f172b] shrink-0 mt-0.5" />
-          <div className="flex-1 min-w-0">
-            <p className="text-base font-normal text-[#0f172b] leading-6 tracking-[-0.3125px] mb-1">
-              Next Step
-            </p>
-            <p className="text-sm font-normal text-[#314158] leading-5 tracking-[-0.1504px]">
-              Interview 5-10 people matching this persona. Ask: &quot;How do you currently solve [problem]? How much time/money does it cost you?&quot;
-            </p>
-          </div>
-        </div>
-      </div>
+      <NextStepCallout
+        variant="info"
+        icon={Info}
+        content='Interview 5-10 people matching this persona. Ask: "How do you currently solve [problem]? How much time/money does it cost you?"'
+      />
     </div>
   );
 }

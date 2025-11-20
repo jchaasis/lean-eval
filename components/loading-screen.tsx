@@ -129,9 +129,6 @@ export function LoadingScreen() {
           clarifiers,
         });
 
-        console.log("evaluation done"); // TODO: remove
-        console.log("result", result); // TODO: remove
-
         const evaluationDuration = Date.now() - evaluationStartTime;
         const remainingTime = Math.max(
           0,
@@ -140,7 +137,6 @@ export function LoadingScreen() {
 
         // Wait for minimum load time
         await new Promise((resolve) => setTimeout(resolve, remainingTime));
-        console.log("timeout done"); // TODO: remove
         // Complete progress
         setProgress(100);
         setActiveTaskIndex(TASKS.length - 1);

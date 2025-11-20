@@ -1,5 +1,6 @@
 import { AlertTriangle } from "lucide-react";
 import type { Risk } from "@/types/evaluation";
+import { NextStepCallout } from "@/components/ui/next-step-callout";
 
 interface RisksContentProps {
   data: readonly Risk[];
@@ -68,19 +69,11 @@ export function RisksContent({ data }: RisksContentProps) {
       )}
 
       {/* Next Step Callout */}
-      <div className="bg-red-50 border border-[#ffc9c9] rounded-[10px] pt-[17px] px-[17px] pb-0 mt-2">
-        <div className="flex gap-3 items-start pb-4">
-          <AlertTriangle className="size-5 text-[#0f172b] shrink-0 mt-0.5" />
-          <div className="flex-1 min-w-0">
-            <p className="text-base font-normal text-[#0f172b] leading-6 tracking-[-0.3125px] mb-1">
-              Next Step
-            </p>
-            <p className="text-sm font-normal text-[#314158] leading-5 tracking-[-0.1504px]">
-              Document mitigation plans. Set up weekly risk review. Talk to 3 users about privacy concerns.
-            </p>
-          </div>
-        </div>
-      </div>
+      <NextStepCallout
+        variant="danger"
+        icon={AlertTriangle}
+        content="Document mitigation plans. Set up weekly risk review. Talk to 3 users about privacy concerns."
+      />
     </div>
   );
 }

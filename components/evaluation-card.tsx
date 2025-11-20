@@ -3,60 +3,38 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
-import type {
-  ProblemAndPersona,
-  MVPScope,
-  Experiment,
-  Risk,
-  KPI,
-} from "@/types/evaluation";
+import type { EvaluationCardData } from "@/types/evaluation";
 import { ProblemPersonaContent } from "@/components/evaluation-card-content/problem-persona-content";
 import { MVPScopeContent } from "@/components/evaluation-card-content/mvp-scope-content";
 import { ExperimentsContent } from "@/components/evaluation-card-content/experiments-content";
 import { RisksContent } from "@/components/evaluation-card-content/risks-content";
 import { KPIsContent } from "@/components/evaluation-card-content/kpis-content";
 
-type EvaluationCardData =
-  | ProblemAndPersona
-  | MVPScope
-  | readonly Experiment[]
-  | readonly Risk[]
-  | readonly KPI[];
-
-type EvaluationCardSection =
-  | "problemAndPersona"
-  | "mvpScope"
-  | "experiments"
-  | "risks"
-  | "kpis";
-
 interface EvaluationCardProps {
   title: string;
-  section: EvaluationCardSection;
   data: EvaluationCardData;
 }
 
 /**
  * Evaluation Card Component
  * Reusable collapsible card for displaying evaluation sections
+ * Uses discriminated unions for type-safe rendering without type assertions
  */
-export function EvaluationCard({ title, section, data }: EvaluationCardProps) {
+export function EvaluationCard({ title, data }: EvaluationCardProps) {
   const [isExpanded, setIsExpanded] = useState(true);
 
   const renderContent = () => {
-    switch (section) {
+    switch (data.type) {
       case "problemAndPersona":
-        return <ProblemPersonaContent data={data as ProblemAndPersona} />;
+        return <ProblemPersonaContent data={data.data} />;
       case "mvpScope":
-        return <MVPScopeContent data={data as MVPScope} />;
+        return <MVPScopeContent data={data.data} />;
       case "experiments":
-        return <ExperimentsContent data={data as readonly Experiment[]} />;
+        return <ExperimentsContent data={data.data} />;
       case "risks":
-        return <RisksContent data={data as readonly Risk[]} />;
+        return <RisksContent data={data.data} />;
       case "kpis":
-        return <KPIsContent data={data as readonly KPI[]} />;
-      default:
-        return null;
+        return <KPIsContent data={data.data} />;
     }
   };
 
