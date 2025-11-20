@@ -4,9 +4,11 @@ import { Lightbulb, Download, Plus, TrendingUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { ScoreCard } from "@/components/score-card";
 import type { EvaluationResult } from "@/types/evaluation";
+import { generateMarkdownExport } from "@/lib/markdown-export";
+import type { IdeaInput } from "@/types/evaluation";
 
 interface EvaluationReportSummaryProps {
-  idea: string;
+  idea: IdeaInput;
   evaluationResult: EvaluationResult;
   onNewEvaluation: () => void;
 }
@@ -37,8 +39,40 @@ export function EvaluationReportSummary({
   const statusBadge = getStatusBadge(compositeScore);
 
   const handleExportMarkdown = () => {
-    // TODO: Implement markdown export
-    console.log("Export markdown");
+    try {
+      // Generate markdown content
+      const markdownContent = generateMarkdownExport(idea, evaluationResult);
+
+      // Create blob with markdown content
+      const blob = new Blob([markdownContent], { type: "text/markdown;charset=utf-8" });
+
+      // Create download link
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      
+      // Generate filename with date and sanitized idea
+      const date = new Date().toISOString().split("T")[0];
+      const sanitizedIdea = idea.description
+        .slice(0, 50)
+        .replace(/[^a-z0-9]/gi, "-")
+        .toLowerCase();
+      link.download = `lean-eval-${sanitizedIdea}-${date}.md`;
+
+      // Trigger download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Clean up
+      URL.revokeObjectURL(url);
+
+      // TODO: Instrumentation hook - log export event
+      // report_exported({ ideaId, timestamp });
+    } catch (error) {
+      console.error("Failed to export markdown:", error);
+      // TODO: Show user-friendly error message
+    }
   };
 
   return (
@@ -53,7 +87,7 @@ export function EvaluationReportSummary({
             Lean Evaluation Report
           </h2>
           <p className="text-sm font-normal text-[#45556c] leading-5 tracking-[-0.1504px] mt-1">
-            {idea}
+            {idea.description}
           </p>
         </div>
       </div>
@@ -134,8 +168,15 @@ export function EvaluationReportSummary({
       <div className="flex gap-3 pb-[33px]">
         <button
           onClick={handleExportMarkdown}
-          className="bg-white border border-[rgba(0,0,0,0.1)] h-9 rounded-lg px-4 flex items-center gap-2 hover:bg-slate-50 transition-colors"
-          aria-label="Export as Markdown"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleExportMarkdown();
+            }
+          }}
+          className="bg-white border border-[rgba(0,0,0,0.1)] h-9 rounded-lg px-4 flex items-center gap-2 hover:bg-slate-50 transition-colors focus:outline-none focus:ring-2 focus:ring-[#00bc7d] focus:ring-offset-2"
+          aria-label="Export evaluation report as Markdown file"
+          type="button"
         >
           <Download className="size-4 text-neutral-950" />
           <span className="text-sm font-medium text-neutral-950 leading-5 tracking-[-0.1504px]">

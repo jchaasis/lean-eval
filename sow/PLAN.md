@@ -238,7 +238,7 @@
 
 
 #### Markdown Export
-- [ ] Implement "Export as Markdown" button functionality:
+- [x] Implement "Export as Markdown" button functionality:
   - Generate styled `.md` content with all evaluation sections
   - Format as "concise investor memo" with fenced sections and callouts
   - Include problem, MVP, KPIs, experiments, risks, and scoring explanation
@@ -268,9 +268,9 @@
 - [x] Map validated data into domain types and cache per session (in-memory) for duration of user flow.
 
 ## 5. Markdown Export
-- [ ] Compose markdown template summarizing problem, MVP, KPIs, experiments, risks, and scoring explanation.
-- [ ] Style export using fenced sections and callouts to match “concise investor memo” tone.
-- [ ] Implement download mechanism (Blob + anchor) and verify accessibility (keyboard, screen reader labels).
+- [x] Compose markdown template summarizing problem, MVP, KPIs, experiments, risks, and scoring explanation.
+- [x] Style export using fenced sections and callouts to match "concise investor memo" tone.
+- [x] Implement download mechanism (Blob + anchor) and verify accessibility (keyboard, screen reader labels).
 
 ## 6. Quality, Accessibility & Testing
 - [ ] Add unit tests for schema validation, scoring math, and prompt serialization.
@@ -282,4 +282,7 @@
 - [ ] Configure Vercel project, environment variables, and preview deployments.
 - [ ] Document manual QA script (idea submission → dashboard → export).
 - [ ] Stub interfaces for future Supabase persistence and analytics events (time-to-evaluation, evaluations per session) without enabling them yet.
+
+## 8. Analytics
+- [ ] Enable Vercel analytics
 
