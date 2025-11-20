@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 import { Sparkles, Target, Lightbulb, TrendingUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { LoadingTask } from "@/components/ui/loading-task";
+import { LoadingIcon } from "@/components/ui/loading-icon";
+import { LoadingErrorState } from "@/components/loading-error-state";
 import { useEvaluation } from "@/contexts/evaluation-context";
 import { generateEvaluation } from "@/app/actions/evaluation";
 
-const MIN_LOAD_TIME_MS = 3000; // 3 seconds minimum
+const MIN_LOAD_TIME_MS = 8000; // 8 seconds minimum
 
 const TASKS = [
   {
@@ -97,22 +99,23 @@ export function LoadingScreen() {
     taskTimeoutsRef.current = [];
 
     // Start progress animation
+    // To reach 90% over ~8 seconds: 90 increments of 1% each at ~89ms intervals
     progressIntervalRef.current = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
+        if (prev >= 90) {
           if (progressIntervalRef.current) {
             clearInterval(progressIntervalRef.current);
             progressIntervalRef.current = null;
           }
-          return 100;
+          return 90;
         }
-        return prev + 2; // Increment by 2% every ~60ms for smooth animation
+        return prev + 1; // Increment by 1% every ~89ms to reach 90% in ~8 seconds
       });
-    }, 60);
+    }, 89);
 
     // Animate tasks sequentially
     TASKS.forEach((_, index) => {
-      const delay = (index + 1) * 750; // 750ms between each task
+      const delay = (index + 1) * 2000; // 2000ms (2s) between each task, spread over 8 seconds
       const timeout = setTimeout(() => {
         setActiveTaskIndex(index);
       }, delay);
@@ -138,7 +141,7 @@ export function LoadingScreen() {
         // Wait for minimum load time
         await new Promise((resolve) => setTimeout(resolve, remainingTime));
         // Complete progress
-        setProgress(100);
+        setProgress(90);
         setActiveTaskIndex(TASKS.length - 1);
 
         // Store result in context
@@ -201,49 +204,14 @@ export function LoadingScreen() {
   };
 
   if (displayError) {
-    return (
-      <Card className="flex flex-col gap-6 pt-[49px] px-[208px] pb-4 min-h-[518px] items-center justify-center">
-        <div className="flex flex-col gap-4 items-center text-center max-w-md">
-          <div className="size-16 bg-red-50 rounded-full flex items-center justify-center mb-2">
-            <span className="text-2xl" aria-hidden="true">
-              ⚠️
-            </span>
-          </div>
-          <h2 className="text-base font-normal text-[#0f172b] leading-6">
-            Evaluation Failed
-          </h2>
-          <p className="text-sm font-normal text-[#45556c] leading-5">
-            {displayError}
-          </p>
-          <div className="flex gap-3 mt-2">
-            <button
-              onClick={handleRetry}
-              className="px-4 py-2 bg-[#030213] text-white rounded-lg hover:opacity-90 transition-opacity text-sm"
-            >
-              Try Again
-            </button>
-            <button
-              onClick={() => router.push("/questions")}
-              className="px-4 py-2 bg-white border border-slate-200 text-[#0f172b] rounded-lg hover:bg-slate-50 transition-colors text-sm"
-            >
-              Go Back
-            </button>
-          </div>
-        </div>
-      </Card>
-    );
+    return <LoadingErrorState error={displayError} onRetry={handleRetry} />;
   }
 
   return (
     <Card className="flex flex-col pt-[49px] px-[208px] pb-1 min-h-[518px]">
       <div className="h-[420px] relative shrink-0 w-full flex flex-col items-center">
         {/* Loading Icon */}
-        <div className="relative size-24 mb-8">
-          <div className="absolute border-4 border-[#a4f4cf] rounded-full size-[102px] -left-[3px] -top-[3px] animate-ring-pulse" />
-          <div className="absolute bg-[#d0fae5] opacity-[0.924] rounded-full size-[72px] left-3 top-3 flex items-center justify-center">
-            <Sparkles className="size-8 text-white" aria-hidden="true" />
-          </div>
-        </div>
+        <LoadingIcon />
 
         {/* Status Text */}
         <h2 className="text-base font-normal text-[#0f172b] leading-6 tracking-[-0.3125px] text-center mb-2">

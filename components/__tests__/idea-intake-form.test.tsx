@@ -29,14 +29,14 @@ describe("IdeaIntakeForm", () => {
     expect(
       screen.getByLabelText("Describe your startup idea")
     ).toBeInTheDocument();
-    expect(screen.getByText("Continue to Questions →")).toBeInTheDocument();
+    expect(screen.getByText("Next →")).toBeInTheDocument();
     expect(screen.getByText("Need inspiration? Try these examples:")).toBeInTheDocument();
   });
 
   it("should disable submit button when textarea is empty", () => {
     renderWithProvider(<IdeaIntakeForm />);
 
-    const submitButton = screen.getByText("Continue to Questions →");
+    const submitButton = screen.getByText("Next →");
     expect(submitButton).toBeDisabled();
   });
 
@@ -47,7 +47,7 @@ describe("IdeaIntakeForm", () => {
     const textarea = screen.getByLabelText("Describe your startup idea");
     await user.type(textarea, "This is a valid idea description that is long enough");
 
-    const submitButton = screen.getByText("Continue to Questions →");
+    const submitButton = screen.getByText("Next →");
     expect(submitButton).not.toBeDisabled();
   });
 
@@ -104,7 +104,7 @@ describe("IdeaIntakeForm", () => {
       "This is a valid idea description that is long enough to pass validation"
     );
 
-    const submitButton = screen.getByText("Continue to Questions →");
+    const submitButton = screen.getByText("Next →");
     await user.click(submitButton);
 
     await waitFor(() => {
@@ -119,10 +119,10 @@ describe("IdeaIntakeForm", () => {
     const textarea = screen.getByLabelText("Describe your startup idea");
     await user.type(textarea, "Short");
 
-    const submitButton = screen.getByText("Continue to Questions →");
+    const submitButton = screen.getByText("Next →");
     expect(submitButton).toBeDisabled();
 
-    const form = screen.getByText("Continue to Questions →").closest("form");
+    const form = screen.getByText("Next →").closest("form");
     if (form) {
       fireEvent.submit(form);
     }
@@ -149,7 +149,7 @@ describe("IdeaIntakeForm", () => {
     const textarea = screen.getByLabelText("Describe your startup idea");
     await user.type(textarea, "Short");
 
-    const submitButton = screen.getByText("Continue to Questions →");
+    const submitButton = screen.getByText("Next →");
     expect(submitButton).toBeDisabled();
 
     await user.type(textarea, "This is now long enough");
