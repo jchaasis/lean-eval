@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Sparkles, Target, Lightbulb, TrendingUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { LoadingTask } from "@/components/ui/loading-task";
+import { LoadingErrorState } from "@/components/loading-error-state";
 import { useEvaluation } from "@/contexts/evaluation-context";
 import { generateEvaluation } from "@/app/actions/evaluation";
 
@@ -202,37 +203,7 @@ export function LoadingScreen() {
   };
 
   if (displayError) {
-    return (
-      <Card className="flex flex-col gap-6 pt-[49px] px-[208px] pb-4 min-h-[518px] items-center justify-center">
-        <div className="flex flex-col gap-4 items-center text-center max-w-md">
-          <div className="size-16 bg-red-50 rounded-full flex items-center justify-center mb-2">
-            <span className="text-2xl" aria-hidden="true">
-              ⚠️
-            </span>
-          </div>
-          <h2 className="text-base font-normal text-[#0f172b] leading-6">
-            Evaluation Failed
-          </h2>
-          <p className="text-sm font-normal text-[#45556c] leading-5">
-            {displayError}
-          </p>
-          <div className="flex gap-3 mt-2">
-            <button
-              onClick={handleRetry}
-              className="px-4 py-2 bg-[#030213] text-white rounded-lg hover:opacity-90 transition-opacity text-sm"
-            >
-              Try Again
-            </button>
-            <button
-              onClick={() => router.push("/questions")}
-              className="px-4 py-2 bg-white border border-slate-200 text-[#0f172b] rounded-lg hover:bg-slate-50 transition-colors text-sm"
-            >
-              Go Back
-            </button>
-          </div>
-        </div>
-      </Card>
-    );
+    return <LoadingErrorState error={displayError} onRetry={handleRetry} />;
   }
 
   return (
