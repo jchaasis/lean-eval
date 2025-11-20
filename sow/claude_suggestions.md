@@ -747,84 +747,6 @@ components/
 
 ---
 
-## 6. Testing
-
-### 🔴 Critical: Zero Test Coverage
-
-**Location:** Project-wide
-
-**Issue:**
-No tests exist for any component, hook, or utility function.
-
-**Recommendation:**
-Set up testing infrastructure:
-
-```bash
-npm install -D @testing-library/react @testing-library/jest-dom @testing-library/user-event vitest @vitejs/plugin-react jsdom
-```
-
-**vitest.config.ts:**
-```typescript
-import { defineConfig } from "vitest/config";
-import react from "@vitejs/plugin-react";
-import path from "path";
-
-export default defineConfig({
-  plugins: [react()],
-  test: {
-    environment: "jsdom",
-    setupFiles: ["./test/setup.ts"],
-    globals: true,
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./"),
-    },
-  },
-});
-```
-
-**Example test:**
-```tsx
-// components/ui/primary-button.test.tsx
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { PrimaryButton } from "./primary-button";
-
-describe("PrimaryButton", () => {
-  it("renders with text", () => {
-    render(<PrimaryButton text="Click me" />);
-    expect(screen.getByRole("button", { name: "Click me" })).toBeInTheDocument();
-  });
-
-  it("calls onClick when clicked", async () => {
-    const onClick = vi.fn();
-    render(<PrimaryButton text="Click me" onClick={onClick} />);
-
-    await userEvent.click(screen.getByRole("button"));
-    expect(onClick).toHaveBeenCalledTimes(1);
-  });
-
-  it("is disabled when disabled prop is true", () => {
-    render(<PrimaryButton text="Click me" disabled />);
-    expect(screen.getByRole("button")).toBeDisabled();
-  });
-
-  it("shows loading text when isLoading is true", () => {
-    render(<PrimaryButton text="Submit" isLoading />);
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
-  });
-});
-```
-
-**Priority Test Coverage:**
-1. UI Components (PrimaryButton, Card, QuestionField)
-2. Form Components (IdeaIntakeForm, QuestionsForm)
-3. Utilities (markdown-export, scoring calculations)
-4. Context (EvaluationContext)
-5. Server Actions (evaluation.ts - use MSW for API mocking)
-
----
 
 ## 7. Error Handling & User Experience
 
@@ -1243,32 +1165,32 @@ const handleSubmit = async (e: React.FormEvent) => {
 ## Priority Implementation Roadmap
 
 ### Phase 1: Critical Fixes (Week 1)
-1. ✅ Remove all console.logs and TODO comments
-2. ✅ Extract duplicate NextStepCallout component
-3. ✅ Fix type assertions in EvaluationCard
-4. ✅ Set up basic test infrastructure
-5. ✅ Add error boundaries
+1. [x] Remove all console.logs and TODO comments
+2. [x] Extract duplicate NextStepCallout component
+3. [ ] Fix type assertions in EvaluationCard
+4. [ ] Set up basic test infrastructure
+5. [ ] Add error boundaries
 
 ### Phase 2: Quality Improvements (Week 2)
-1. ✅ Extract custom hooks from LoadingScreen
-2. ✅ Remove unnecessary context updates in QuestionsForm
-3. ✅ Add retry logic with exponential backoff
-4. ✅ Consolidate magic numbers into config
-5. ✅ Add input sanitization
+1. [ ] Extract custom hooks from LoadingScreen
+2. [ ] Remove unnecessary context updates in QuestionsForm
+3. [ ] Add retry logic with exponential backoff
+4. [ ] Consolidate magic numbers into config
+5. [ ] Add input sanitization
 
 ### Phase 3: Testing & Documentation (Week 3)
-1. ✅ Write tests for UI components
-2. ✅ Write tests for utilities
-3. ✅ Write tests for forms
-4. ✅ Add component documentation
-5. ✅ Create testing best practices guide
+1. [ ] Write tests for UI components
+2. [ ] Write tests for utilities
+3. [ ] Write tests for forms
+4. [ ] Add component documentation
+5. [ ] Create testing best practices guide
 
 ### Phase 4: Polish & Optimization (Week 4)
-1. ✅ Add React.memo to pure components
-2. ✅ Implement request deduplication
-3. ✅ Add performance monitoring
-4. ✅ Improve error messages
-5. ✅ Add accessibility improvements
+1. [ ] Add React.memo to pure components
+2. [ ] Implement request deduplication
+3. [ ] Add performance monitoring
+4. [ ] Improve error messages
+5. [ ] Add accessibility improvements
 
 ---
 

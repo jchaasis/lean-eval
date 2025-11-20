@@ -1,5 +1,6 @@
 import { CheckCircle } from "lucide-react";
 import type { MVPScope } from "@/types/evaluation";
+import { NextStepCallout } from "@/components/ui/next-step-callout";
 
 interface MVPScopeContentProps {
   data: MVPScope;
@@ -52,19 +53,11 @@ export function MVPScopeContent({ data }: MVPScopeContentProps) {
       </div>
 
       {/* Next Step Callout */}
-      <div className="bg-green-50 border border-[#b9f8cf] rounded-[10px] pt-[17px] px-[17px] pb-0 mt-2">
-        <div className="flex gap-3 items-start pb-4">
-          <CheckCircle className="size-5 text-[#0f172b] shrink-0 mt-0.5" />
-          <div className="flex-1 min-w-0">
-            <p className="text-base font-normal text-[#0f172b] leading-6 tracking-[-0.3125px] mb-1">
-              Next Step
-            </p>
-            <p className="text-sm font-normal text-[#314158] leading-5 tracking-[-0.1504px]">
-              Build a landing page with email capture. Goal: 50 signups before writing any code.
-            </p>
-          </div>
-        </div>
-      </div>
+      <NextStepCallout
+        variant="success"
+        icon={CheckCircle}
+        content="Build a landing page with email capture. Goal: 50 signups before writing any code."
+      />
     </div>
   );
 }
