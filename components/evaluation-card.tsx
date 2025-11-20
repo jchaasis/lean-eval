@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp, RefreshCw } from "lucide-react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import type {
   ProblemAndPersona,
@@ -43,11 +43,6 @@ interface EvaluationCardProps {
 export function EvaluationCard({ title, section, data }: EvaluationCardProps) {
   const [isExpanded, setIsExpanded] = useState(true);
 
-  const handleRegenerate = () => {
-    // TODO: Implement regeneration functionality
-    console.log("Regenerate section:", section);
-  };
-
   const renderContent = () => {
     switch (section) {
       case "problemAndPersona":
@@ -86,18 +81,8 @@ export function EvaluationCard({ title, section, data }: EvaluationCardProps) {
 
       {/* Content */}
       {isExpanded && (
-        <div className="px-6 pb-6 relative">
+        <div className="px-6 pb-6">
           {renderContent()}
-
-          {/* Regenerate Button */}
-          <button
-            onClick={handleRegenerate}
-            className="absolute bottom-6 right-6 h-8 rounded-lg px-3 flex items-center gap-2 text-sm font-medium text-[#45556c] leading-5 tracking-[-0.1504px] hover:bg-slate-100 transition-colors"
-            aria-label={`Regenerate ${title} section`}
-          >
-            <RefreshCw className="size-4" />
-            <span>Regenerate Section</span>
-          </button>
         </div>
       )}
     </Card>

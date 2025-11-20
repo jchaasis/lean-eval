@@ -1,8 +1,6 @@
-import { RefreshButton } from "@/components/idea-intake-form";
-
 /**
  * Page Header Component
- * Shared header section used across pages with title, subtitle, and refresh button
+ * Shared header section used across pages with title and subtitle
  */
 export function PageHeader() {
   return (
@@ -14,9 +12,6 @@ export function PageHeader() {
         <p className="text-base font-normal text-[#45556c] leading-6 tracking-[-0.3125px] text-center mt-2">
           Validate your startup idea with AI-powered Lean Startup analysis
         </p>
-      </div>
-      <div className="absolute right-0 top-0">
-        <RefreshButton />
       </div>
     </header>
   );

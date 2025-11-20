@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Lightbulb, RefreshCw } from "lucide-react";
+import { Lightbulb } from "lucide-react";
 import { useEvaluation } from "@/contexts/evaluation-context";
 import { Card } from "@/components/ui/card";
 import { CardHeader } from "@/components/ui/card-header";
@@ -55,7 +55,7 @@ export function IdeaIntakeForm() {
   };
 
   return (
-    <Card className="flex flex-col gap-6 pt-[33px] px-[33px] pb-1">
+    <Card className="flex flex-col gap-6 pt-[33px] px-[33px] pb-[33px]">
       {/* Icon + Heading Section */}
       <CardHeader
         icon={<Lightbulb className="size-6 text-[#0f172b]" aria-hidden="true" />}
@@ -114,31 +114,6 @@ export function IdeaIntakeForm() {
         />
       </form>
     </Card>
-  );
-}
-
-/**
- * Refresh Button Component
- * Resets the form and clears state
- */
-export function RefreshButton() {
-  const { clearEvaluation } = useEvaluation();
-  const router = useRouter();
-
-  const handleRefresh = () => {
-    clearEvaluation();
-    router.push("/");
-  };
-
-  return (
-    <button
-      type="button"
-      onClick={handleRefresh}
-      className="rounded-full size-9 flex items-center justify-center hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2 transition-colors"
-      aria-label="Refresh and start over"
-    >
-      <RefreshCw className="size-4 text-[#0f172b]" aria-hidden="true" />
-    </button>
   );
 }
 
