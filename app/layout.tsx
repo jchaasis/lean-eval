@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import { EvaluationProvider } from "@/contexts/evaluation-context";
 import { ErrorBoundary } from "@/components/error-boundary";
 import "./globals.css";
@@ -29,6 +30,7 @@ export default function RootLayout({
         <ErrorBoundary>
           <EvaluationProvider>{children}</EvaluationProvider>
         </ErrorBoundary>
+        <Analytics />
       </body>
     </html>
   );
