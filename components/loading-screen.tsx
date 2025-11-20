@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Sparkles, Target, Lightbulb, TrendingUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { LoadingTask } from "@/components/ui/loading-task";
+import { LoadingIcon } from "@/components/ui/loading-icon";
 import { LoadingErrorState } from "@/components/loading-error-state";
 import { useEvaluation } from "@/contexts/evaluation-context";
 import { generateEvaluation } from "@/app/actions/evaluation";
@@ -210,12 +211,7 @@ export function LoadingScreen() {
     <Card className="flex flex-col pt-[49px] px-[208px] pb-1 min-h-[518px]">
       <div className="h-[420px] relative shrink-0 w-full flex flex-col items-center">
         {/* Loading Icon */}
-        <div className="relative size-24 mb-8">
-          <div className="absolute border-4 border-[#a4f4cf] rounded-full size-[102px] -left-[3px] -top-[3px] animate-ring-pulse" />
-          <div className="absolute bg-[#d0fae5] opacity-[0.924] rounded-full size-[72px] left-3 top-3 flex items-center justify-center">
-            <Sparkles className="size-8 text-white" aria-hidden="true" />
-          </div>
-        </div>
+        <LoadingIcon />
 
         {/* Status Text */}
         <h2 className="text-base font-normal text-[#0f172b] leading-6 tracking-[-0.3125px] text-center mb-2">
