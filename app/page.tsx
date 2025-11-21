@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/ui/page-header";
 
 /**
  * Landing page / Idea Intake
- * Server component that renders the initial idea input form matching Figma design
+ * Server component that renders the initial idea input form
  */
 export default function HomePage() {
   return (
