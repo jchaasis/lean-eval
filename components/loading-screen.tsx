@@ -6,6 +6,7 @@ import { Sparkles, Target, Lightbulb, TrendingUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { LoadingTask } from "@/components/ui/loading-task";
 import { LoadingIcon } from "@/components/ui/loading-icon";
+import { ProgressBar } from "@/components/ui/progress-bar";
 import { LoadingErrorState } from "@/components/loading-error-state";
 import { useEvaluation } from "@/contexts/evaluation-context";
 import { generateEvaluation } from "@/app/actions/evaluation";
@@ -235,17 +236,7 @@ export function LoadingScreen() {
         </div>
 
         {/* Progress Bar */}
-        <div className="bg-slate-100 rounded-full h-2 w-full overflow-hidden">
-          <div
-            className="bg-gradient-to-r from-[#00bc7d] to-[#009966] h-2 rounded-full transition-all duration-300 ease-out"
-            style={{ width: `${progress}%` }}
-            role="progressbar"
-            aria-valuenow={progress}
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-label="Evaluation progress"
-          />
-        </div>
+        <ProgressBar progress={progress} ariaLabel="Evaluation progress" />
       </div>
     </Card>
   );

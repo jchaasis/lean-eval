@@ -7,16 +7,11 @@ import { useEvaluation } from "@/contexts/evaluation-context";
 import { Card } from "@/components/ui/card";
 import { CardHeader } from "@/components/ui/card-header";
 import { PrimaryButton } from "@/components/ui/primary-button";
+import { ExampleIdeasSection } from "@/components/example-ideas-section";
 import type { IdeaInput } from "@/types/evaluation";
 
 const MIN_IDEA_LENGTH = 10;
 const MAX_IDEA_LENGTH = 500;
-
-const EXAMPLE_IDEAS = [
-  "A Chrome extension that summarizes meeting notes using AI",
-  "A marketplace connecting local farmers directly with restaurants",
-  "An app that gamifies learning to code for kids",
-] as const;
 
 /**
  * Idea Intake Form Component
@@ -86,24 +81,7 @@ export function IdeaIntakeForm() {
         </div>
 
         {/* Inspiration Section */}
-        <div className="bg-slate-50 border border-slate-200 rounded-[10px] px-[17px] pt-[17px] pb-1 flex flex-col gap-2">
-          <p className="text-sm font-normal text-[#45556c] leading-5 tracking-[-0.1504px]">
-            Need inspiration? Try these examples:
-          </p>
-          <div className="flex flex-col gap-2 pb-4">
-            {EXAMPLE_IDEAS.map((example, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={() => handleExampleClick(example)}
-                className="text-left text-sm font-normal text-[#009966] leading-5 tracking-[-0.1504px] hover:underline focus:outline-none focus:ring-2 focus:ring-[#009966] focus:ring-offset-2 rounded px-2 py-1 -mx-2 -my-1"
-                aria-label={`Use example: ${example}`}
-              >
-                &quot;{example}&quot;
-              </button>
-            ))}
-          </div>
-        </div>
+        <ExampleIdeasSection onExampleClick={handleExampleClick} />
 
         {/* Continue Button */}
         <PrimaryButton
